@@ -5,18 +5,22 @@ import java.util.*;
 
 public class GraphList {
 static int N;
-static int[][] g;
+static List[] g;
 static boolean[] v;
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
-		g = new int[N][N];
+		g = new List[N];
 		int E = sc.nextInt();
+		for(int i = 0; i<N; i++) {
+			g = new 
+		}
 		for(int i = 0; i<E; i++) {
 			int from=sc.nextInt();
 			int to = sc.nextInt();
-			g[from][to]=g[to][from]=1;
+			g[from].add(to);
+			g[to].add(from);
 		}
 		for(int[]b:g) {
 			System.out.println(Arrays.toString(b));
