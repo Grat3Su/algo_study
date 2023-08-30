@@ -5,16 +5,16 @@ import java.util.*;
 
 public class GraphList {
 static int N;
-static List[] g;
+static List<List<Integer>> g;
 static boolean[] v;
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
-		g = new List[N];
+		g = new List<Integer>();
 		int E = sc.nextInt();
 		for(int i = 0; i<N; i++) {
-			g = new 
+			//g = new 
 		}
 		for(int i = 0; i<E; i++) {
 			int from=sc.nextInt();
