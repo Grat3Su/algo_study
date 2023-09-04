@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!--내부 css-->
+    <style>
+      /*table*/
+      table#movie-info{
+        border-collapse: collapse;        
+      }
+      tr,td,th{
+        border: 1px solid darkorchid;
+        padding: 5px;
+      }
+
+      tr#movie-title{
+        background-color: lightskyblue;
+      }
+      tr:hover{
+        background-color: lightpink;
+        color: white;
+      }
+      /*header*/
+      #header{
+        height: 70px;
+        background-color: black;
+        color: white;
+        line-height: 70px;
+        padding: 0 40px;
+      }
+      /*content layout : flex, position*/
+      /*flex container*/
+      .content{
+        display: flex;
+        margin: 20px 30px;
+        justify-content: flex-start;
+      }
+
+      /*flex item1*/
+      /*영화 목록 공간*/
+      .content-movie-list{
+        width: 80%;
+      }
+
+
+      /*flex item2*/
+      .content-movie-like{
+        width: 20%;
+        position: fixed;/*고정하겠다*/
+        top: 90px;
+        right: 200px;
+      }
+    </style>
+
+    <script type="text/javascript">
+      /*영화정보 json 객체 전역 변수 선언 및 초기화*/
+      let movies = {movies:[
+      {
+          img : 'eternals.jpg',
+          title : '이터널스',
+          genre : '액션',
+          director : '클로이 자오',
+          runnigTime : 155
+        },
+        {
+          img : 'venom.jpg',
+          title : '베놈 2: 렛 데어 비 카니지',
+          genre : '액션',
+          director : '앤디 서키스',
+          runnigTime : 97
+        },
+        {
+          img : 'parasite.jpg',
+          title : '기생충',
+          genre : '드라마',
+          director : '봉준호',
+          runnigTime : 131
+        },
+        {
+          img : 'harrypoter_stone.jpg',
+          title : '해리포터와 마법사의 돌',
+          genre : '판타지',
+          director : '크리스 콜럼버스',
+          runnigTime : 152
+        },
+        {
+          img : 'harrpoter_room.jpg',
+          title : '해리포터와 비밀의 방',
+          genre : '판타지',
+          director : '크리스 콜롬버스',
+          runnigTime : 162
+        },
+        {
+          img : 'load_of_ring.jpg',
+          title : '반지의제왕: 왕의 귀환',
+          genre : '판타지',
+          director : '피터 잭슨',
+          runnigTime : 263
+        },
+        {
+          img : 'dune.jpg',
+          title : '듄',
+          genre : '모험',
+          director : '드니 뷜뇌브',
+          runnigTime : 155
+        },
+        {
+          img : 'tomb_of_the_river.jpg',
+          title : '강릉',
+          genre : '범죄',
+          director : '윤영빈',
+          runnigTime : 119
+        }
+
+      ]
+      }
+      //console.log(typeof movies);
+      //console.log(movies);
+
+      //윈도우 로드 이벤트 처리 : 영화정보 json 정보를 가져와서 테이블 목록 동적 만들기
+      window.onload = function(){
+        let takeTable=document.getElementById("movie-info");
+        //기존 테이블 html code 가져오기
+        let html = takeTable.innerHTML;
+        //json 영화정보 객체 반복해서 테이블 목록 만들기
+        for(index = 0; index<movies.movies.length; index++){
+          html+=`<tr onclick="movieLike(${index})">`
+          //html+=`<tr>`;//수식 내용을 그대로 연결가능
+          html+=`<td>${movies.movies[index].title}</td>`;
+          html+=`<td>${movies.movies[index].genre}</td>`;
+          html+=`<td>${movies.movies[index].director}</td>`;
+          html+=`<td>${movies.movies[index].runnigTime}</td>`;
+          html+=`<td>${movies.movies[index].img}</td>`;
+          html+=`</tr>`;//수식 내용을 그대로 연결가능
+        }
+        //console.log(html);
+        takeTable.innerHTML =html;
+      }
+      /*영화 찜 체크 여부를 위한 배열 선언 및 생성*/
+      //let isMovieLike=[];
+      //let isMovieLike=new Array();
+      
+      //자바 스크립트에서 선언만
+      let isMovieLike=new Array(movies.movies.length);
+      
+
+      /*영화 찜 목록 추가 func*/
+      function movieLike(index){
+        //찜목록 메세지 초기화
+        document.querySelector("#like-movie-empty").innerText="";//한번만 쓰고 말것
+
+        //영화 찜목록 체킹하기
+        if(isMovieLike[index]){
+          alert(`${movies.movies[index].title} 이미 찜 하였습니다.`);
+        }
+
+        //영화 찜 목록 true 체킹
+        isMovieLike[index] = true;
+        //찜목록 dom 가져오기
+        let likeMovieList=document.querySelector("#like-movie-list");
+        //찜목록 가져오기
+        let html = likeMovieList.innerHTML;
+        //새로 찜한 목록을 추가
+        html+=`<li>${movies.movies[index].title}</li>`;
+        //목록 추가 내용으로 동작 변경하기
+        likeMovieList,innerHTML = html;
+      }
+
+
+    </script>
+  </head>
+  <body>
+    <!-- header -->
+    <div id="header">
+      <h2>영화목록</h2>
+    </div>
+
+    <!-- content main -->
+    <!-- flex content -->
+    <div class="content">
+      <div class="ccontent-movie-list">
+        <table id="movie-info">
+          <!-- 제목행 -->
+          <!-- tr>th*5 -->
+          <tr id="movie-title">
+            <th>영화명</th>
+            <th>장르</th>
+            <th>감독</th>
+            <th>상영시간</th>
+            <th>스틸컷</th>
+          </tr>
+          <!-- movie-info 반복행 -->
+          <!-- tr>td*5 -->
+        </table>
+      </div>
+      <!--flex item-->
+      <div>
+        <aside class="content-movie-like">
+          <h3>찜리스트</h3>
+          <div id="like-moive-empty">아직 찜한 영화가 없습니다....</div>
+          <ul id="like-movie-list"></ul>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

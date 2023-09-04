@@ -11,7 +11,7 @@ static boolean[] v;
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
-		g = new List<Integer>();
+		g = new ArrayList<Integer>();
 		int E = sc.nextInt();
 		for(int i = 0; i<N; i++) {
 			//g = new 
