@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트핸들링</title>
+    <!-- 외부 css -->
+    <link rel="stylesheet" href="common.css">
+
+    <!-- 내부 css -->
+    <style>
+    </style>
+
+    <!-- 내부 js -->
+    <script type='text/javascript'>
+        /* 아이디 중복 새창열기 이벤트 처리 : idcheck.html */
+        function idCheckOpen(){
+            let url = "idcheck.html";//동일한 폴더
+            let config = "width=400, height=300,top=200, left=200";
+            let idCheckWin = window.open(url,"idCheck", config);
+        }
+
+    </script>
+</head>
+<body>
+    <h2>회원가입</h2>
+    <!--
+        # 회원가입 속성:
+        아이디, 중복확인(버튼), 비밀번호, 비밀번호확인, 이름, 휴대폰(010-1234-1234),
+        이메일(아이디, 도메인, 도메인선택)
+        회원가입(요청전용), 취소(취소전용)
+    -->
+    <form action="#" method='post'>
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td>
+                    <input type="text" name="memberId" id="memberId" autofocus='autofocus'
+                    required='required'>
+                    <!-- 이벤트처리: 1. 인라인 이벤트 핸들러 : 태그에 직접 이벤트 핸들러 바인딩 -->
+                    <input type="button" value="중복확인" onclick="idCheckOpen()"><!--이 버튼이 클릭이 되었을 때-->
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td>
+                    <input type="password" name="memberPw" id="memberPw" required='required'>
+                    <input type="checkbox" name="isShow" id="isShow"><span id="showMemberPw">비밀번호 보이기</span>
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호확인</td>
+                <td>
+                    <input type="password" name="memberPwConfirm" id="memberPwConfirm" required='required'>
+                    <span id='showMemberPwConfirm'></span>
+                </td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td><input type="text" name="name" id="name" required='required'></td>
+            </tr>
+            <tr>
+                <td>휴대폰</td>
+                <td>
+                    <input type="number" name="mobile1" id="mobile1" value='010' readOnly='readonly'>
+                    <input type="number" name="mobile2" id="mobile2" required='required'>
+                    <input type="number" name="mobile3" id="mobile3" required='required'>
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <input type="text" name="emailId" id="emailId" required='required'>
+                    <input type="text" name="emailDomain" id="emailDomain" readOnly='readOnly' required='required'>
+                    <select name="emailDomainSelect" id="emailDomainSelect">
+                        <option value="none">== 선택 ==</option>
+                        <option value="@samsung.com">삼성</option>
+                        <option value="@naver.com">네이버</option>
+                        <option value="@gmail.com">구글</option>
+                        <option value="userInput">직접입력</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan='2'>
+                    <input type="submit" value="회원가입">
+                    <input type="reset" value="취소">
+                </th>
+            </tr>
+        </table>
+    </form>
+
+    <!-- js: addEventListener() 이벤트 처리 위치: body 가 모두 로드 후에 바인딩 처리 -->
+    <script type='text/javascript'>
+
+        /* 비밀번호 보이기/감추기 change 이벤트 처리 : id="isShow" checkbox */
+
+
+
+        /* 비밀번호와 비밀번호 확인 매핑 이벤트 처리 : 비밀번호 확인 포커스를 떠났을때
+            id="memberPwConfirm"
+        */
+
+
+        /* 휴대폰 번호 2번째 4자리 입력시 휴대폰 번호 3번째 포커스 이동 이벤트 처리 : keydown, keyup
+            id="mobile2"
+        */
+
+
+        /* 휴대폰 번호 3번째 4자리 입력시 이메일아이디 포커스 이동 이벤트 처리
+            id="mobile3"
+        */
+
+
+        /* 이메일 도메인 select 선택 change 이벤트 처리
+            id="emailDomainSelect"
+        */
+
+        
+    </script>
+</body>
+</html>

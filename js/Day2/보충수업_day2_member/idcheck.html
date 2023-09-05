@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디중복확인</title>
+    <!-- 외부 css -->
+    <link rel="stylesheet" href="common.css">
+    <!-- 내부 js -->
+    <script type='text/javascript'>
+        /* 아이디 배열 초기화 : 회원들의 아이디 정보 저장 초기화 */
+        let memberIdList=["유저1","유저2","유저3"];
+        //let memberIdList=new Array("유저1","유저2","유저3");
+
+        /* 자식창 로드시 이벤트 처리 */
+        window.onload = () => {
+            // 윈도우 초기화 작업하기
+            initWindow();
+            // 부모창에서 입력한 (아이디) 데이터 가져오기
+            //부모창 : window.opener.document.xxxxx
+            let memberId = window.opener.document.querySelector("#memberId").value;
+            console.log(memberId);
+
+            // 자식창(현재 아이디중복확인 창)의 아이디 데이터로 초기화하기
+            // 즉, 부모창의 데이터 가져와서 초기화 사용하기
+            //현재창(현재 문서) document.xxxxxx
+            document.querySelector("#memberIdChcek").value = memberId;
+
+        }
+
+        /* 아이디 중복창 초기화 함수 : 로드시 이벤트 처리 및 초기화 버튼 클릭 이벤트 처리
+            - 메세지 출력 영역 지우기 : showMessage
+            - 사용하기 버튼 비활성화 하기 : btnUse 
+            - 아이디 입력정보 초기화하기 : memberIdCheck
+            - 아이디 입력항목 포커스 위치하기 : memberIdCheck
+        */
+        function initWindow() {
+            document.querySelector("#showMessage").innerText="";
+            document.querySelector("#btnUse").disabled="disabled";//=<input type = "button" disabled = "desabled>"
+            document.querySelector("#memberIdCheck").value = "";
+            document.querySelector("#memberIdCheck").focus;//포커스 이동
+        }
+    </script>
+</head>
+<body>
+    <h2>아이디 중복확인</h2>
+    <form action="#" method="post">
+        <table>
+            <tr>
+                <td><input type="text" name="memberIdChcek" id="memberIdCheck"
+                    autofocus='autofocus'></td>
+                <td><input type="button" value="중복확인" id='btnIdCheck'></td>
+            </tr>
+            <tr>
+                <td colspan='2'>
+                    <input type="button" value="사용하기" id='btnUse'>
+                    <input type="button" value="초기화" id='btnReset'>
+                    <input type="button" value="창닫기" id='btnClose'>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2' id='showMessage'>메세지 출력영역</td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- js : body가 모두 로드 된 후에 접근 이벤트 처리 -->
+    <script type='text/javascript'>
+        /* 2. 이벤트처리: 이벤트 핸들러 프로퍼티 이용한 방식
+
+            # 아이디 중복확인 버튼 클릭 이벤트 처리 함수
+            1. 입력한 아이디 데이터 가져오기
+            2. 입력한 아이디가 사용자 아이디목록(배열) 존재 여부 체킹
+            3. 존재하지 않으면 "사용가능한 아이디입니다." 메세지 출력하고, 사용하기 버튼 활성화(비활성화 취소)
+            4. 존재하면 "사용 불가한 아이디입니다." 메세지 출력하고, 사용하기 버튼 비활성화
+
+            id="btnIdCheck"
+        */
+
+
+        /* 3. 이벤트처리: addEventListener() 메서드 처리
+            아이디 키입력 이벤트 처리
+            id="memberIdCheck"
+            1. 입력한 아이디 가져오기
+            2. 입력한 아이디가 회원들의 아이디 배열요소에 저장여부 체킁
+            3. 존재하면 오류메세지 출력하고 사용하기 비활성화
+            4. 존재하지 않으면 사용가능한 메세지 출력 사용하기 활성화
+        */
+       document.querySelector("#memberIdCheck").addEventListener("click",function(){
+        //1. 입력한 아이디 가져오기
+            let memberId = document.querySelector("#memberIdCheck").value;
+            //오류메세지 dom 가져오기
+            let showMessageElement = document.querySelector("#showMessage").value;
+            
+            //사용하기 버튼 dom 가져오기
+            let btnUseElement = document.querySelector("#btnUse").value;
+
+            //2. 입력한 아이디가 회원들의 아이디 배열요소에 저장여부 체킁
+            for(i = 0; i<memberIdList.length; i++){
+                if(memberIdList[i]==memberId){
+                    //3. 존재하면 오류메세지 출력하고 사용하기 비활성화
+                    showMessageElement.innerText ="사용불가 아이디 입니다.";
+                    btnUseElement.disabled = "disabled";
+                    document.querySelector("#memberIdCheck").focus();
+                    return;
+                }
+            }
+            // 4. 존재하지 않으면 사용가능한 메세지 출력 사용하기 활성화
+            showMessageElement.innerText ="사용가능 아이디 입니다.";
+            btnUseElement.disabled = "";
+       });
+
+
+        /* 사용하기 버튼 클릭 이벤트 처리 : id="btnUse" */
+
+
+        
+        /* 초기화 버튼 클릭 이벤트 처리 : callback 메서드 바인딩 : callback 메서드명만 표기할것!!!
+            : id="btnReset"
+        */
+        document.querySelector("#btnReset").addEventListener("click", initWindow);
+
+        /* 창닫기 버튼 클릭 이벤트 처리 : id="btnClose" */
+        document.querySelector("btnClose").addEventListener("click", ()=>{
+            window.close();
+        });
+
+</script>
+</body>
+</html>

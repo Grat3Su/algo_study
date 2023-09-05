@@ -1,0 +1,44 @@
+/* filename: common.css */
+/* table */
+table {
+    border-collapse: collapse;
+}
+
+tr, td, th {
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+
+/* readOnly */
+[readOnly] {
+    background-color: orange;
+}
+
+/* error message */
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* success message */
+.success {
+    color: green;
+}
+
+/* form */
+/* .btn-normal {
+
+}
+
+.btn-small {
+
+}
+
+.btn-color-1 {
+
+}
+
+.btn-color-2 {
+
+} */
+
